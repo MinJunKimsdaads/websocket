@@ -3,12 +3,13 @@ import React from 'react';
 
 import { useState } from 'react';
 import { io } from 'socket.io-client';
-const socket = io("http://localhost:3001",{
-  rejectUnauthorized: false
-}); //백엔드 서버 포트를3001와 socket연결 
 
 
 function App() {
+  const socket = io("http://localhost:3001",{
+    // rejectUnauthorized: false
+  }); //백엔드 서버 포트를3001와 socket연결 
+
   const initialValue = {
     name: "",
     msg:"",
@@ -33,11 +34,15 @@ function App() {
     setValue(initialValue);
   }
   
-  const messageComponentMount = () => {
-    socket.on("receive message",(message)=>{
-      setMsgList([...msgList,message]);
-    })
-  }
+  // const messageComponentMount = () => {
+  //   socket.on("receive message",(message)=>{
+  //     setMsgList([...msgList,message]);
+  //   })
+  // }
+
+  socket.on("receive message",(message)=>{
+    setMsgList([...msgList,message]);
+  })
   
   const onChange = (e:any) => {
     const {value, name:name} = e.target;
@@ -46,8 +51,8 @@ function App() {
   return (
     <div className="App">
       <section className="chat_list">
-        {msgList.map((item) => (
-          <div className="messagelist">
+        {msgList.map((item,index) => (
+          <div className="messagelist" key={index}>
             <p className="username">{item.name}</p>
             <p className="msg_text">{item.msg}</p>
           </div>
