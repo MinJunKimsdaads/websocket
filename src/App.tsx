@@ -6,7 +6,7 @@ import { io } from 'socket.io-client';
 
 
 function App() {
-  const socket = io("http://localhost:3001",{
+  const socket = io("https://port-0-socketio-node-server-54ouz2llloswl0s.sel3.cloudtype.app/",{
     // rejectUnauthorized: false
   }); //백엔드 서버 포트를3001와 socket연결 
 
